@@ -1,4 +1,4 @@
-class Driver 
+class Driver
   NAME = :poltergeist
 
   # Configures Capybara to use PhantomJS/Poltergeist.
@@ -7,13 +7,13 @@ class Driver
     register
     Capybara.current_driver = NAME
   end
-  
+
   def self.register
     Capybara.register_driver(NAME) do |app|
       Capybara::Poltergeist::Driver.new(app, options)
     end
   end
-    
+
   def self.options
     {
       :phantomjs => Phantomjs.path,

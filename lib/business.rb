@@ -8,7 +8,7 @@ class Business
   def initialize
     start
   end
-  
+
 private
 
   def start
@@ -24,7 +24,7 @@ private
     form = find(:css, 'form#form1')
     sec_question = find(:css, '#cphContent_cphMainForm_lblSecQuestion')
 
-    within form do 
+    within form do
       case sec_question.text
       when SECRET_Q1
         fill_in "cphContent_cphMainForm_txtAnswer", :with => SECRET_A1
