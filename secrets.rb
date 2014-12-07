@@ -1,0 +1,8 @@
+USERNAME = "username"
+SECRET_Q1 = "What is your (secret question 1 goes here)?"
+SECRET_Q2 = "What is your (secret question 2 goes here)?"
+SECRET_Q3 = "In what (secret question 3 were you born?)"
+SECRET_A1 = "Correct"
+SECRET_A2 = "Horse"
+SECRET_A3 = "Battery"
+MY_WORD = "Staple"
