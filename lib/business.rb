@@ -12,6 +12,22 @@ class Business
 private
 
   def start
+    handle_secrets
+    #find(:css, 'a#cphContent_a27')
+    click_on "Payoff Calculator"
+    save_screenshot('screenshot.png')
+    table = find(:css, '#cphContent_cphMainForm_dgLoan')
+    loans = loan_table(table.text)
+    p loans
+  end
+
+  def loan_table(text)
+    t = text.match(/Select Disbursement Date Loan Type Current Principal Balance \(\$\) Current Interest Rate \(\%\) Outstanding Interest \(\$\) Late Fees Due \(\$\) (.*)/)
+    data = t[1]
+    table = data.scan(/(\d+\/\d\d\/\d\d) ([a-zA-Z ]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ?/)
+  end
+
+  def handle_secrets
     visit BASE_URL
     form = find(:css, 'form#form1')
     username = USERNAME
@@ -48,7 +64,6 @@ private
       click_on "Login"
     end
 
-    save_screenshot('screenshot.png')
   end
 
 end
