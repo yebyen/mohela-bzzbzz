@@ -15,10 +15,33 @@ private
     handle_secrets
     #find(:css, 'a#cphContent_a27')
     click_on "Payoff Calculator"
-    save_screenshot('screenshot.png')
+    #save_screenshot('screenshot.png')
     table = find(:css, '#cphContent_cphMainForm_dgLoan')
     loans = loan_table(table.text)
-    p loans
+
+    check_loans_type(loans)
+
+    loans.each_with_index do |l, i|
+      balance = currency_to_number(l[2])
+      interest = currency_to_number(l[4])
+
+      #currency_to_number(ActionController::Base.helpers.number_to_currency(1234.75,unit: '$')).to_s
+
+      puts "Loan #{1+i}: #{balance + interest}"
+    end
+  end
+
+  def check_loans_type(loans)
+    loans.collect {|b| b.map(&:class)}.each do |c|
+      Kernel.exit(1) unless c.class==Array
+      c.each {|d| Kernel.exit(1) unless d==String }
+      Kernel.exit(1) unless c.length==6
+    end
+    Kernel.exit(1) unless loans.length==5
+  end
+
+  def currency_to_number(currency_value)
+    (currency_value.is_a? String) ? currency_value.scan(/[.0-9]/).join.to_d : currency_value
   end
 
   def loan_table(text)
