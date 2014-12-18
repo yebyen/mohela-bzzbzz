@@ -51,17 +51,20 @@ private
   end
 
   def handle_secrets
+    puts "Visiting #{BASE_URL}"
     visit BASE_URL
     form = find(:css, 'form#form1')
     username = USERNAME
 
     within form do
+      puts "Logging in..."
       fill_in "cphContent_txtUsername", :with => username
       click_on "Login"
     end
 
     form = find(:css, 'form#form1')
     sec_question = find(:css, '#cphContent_cphMainForm_lblSecQuestion')
+    puts "Answering security question."
 
     within form do
       case sec_question.text
@@ -83,9 +86,11 @@ private
 
     form = find(:css, 'form#form1')
     within form do
+      print "Entering password"
       fill_in "cphContent_cphMainForm_txtMyword", :with => MY_WORD
       click_on "Login"
     end
+    puts ". Done"
 
   end
 
