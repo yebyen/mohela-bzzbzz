@@ -11,7 +11,6 @@ class Business
 
   def self.thing(loans)
     bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
-    puts bee.name
     goals = { "944733-475"=> 0,
               "500700-68"=> 1,
               "246112-68"=> 2,
@@ -20,10 +19,11 @@ class Business
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
-      $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l==g.curval})"
-      unless l==g.curval
+      $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
+      unless l.to_s==g.curval.to_s
         puts "Updating #{g.slug}"
-        g.add l
+        dp = Beeminder::Datapoint.new :value => l, :comment => "autodata from mohela-bzzbzz"
+        g.add dp
       end
     end #fiber goes here
   end
