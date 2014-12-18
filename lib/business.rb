@@ -9,6 +9,25 @@ class Business
     start
   end
 
+  def self.thing(loans)
+    bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
+    puts bee.name
+    goals = { "944733-475"=> 0,
+              "500700-68"=> 1,
+              "246112-68"=> 2,
+              "358075-56"=> 3,
+              "480897-68"=> 4 }
+    goals.each do |s, i| #slug, index
+      l = loans[i]
+      g = bee.goal s
+      $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l==g.curval})"
+      unless l==g.curval
+        puts "Updating #{g.slug}"
+        g.add l
+      end
+    end #fiber goes here
+  end
+
 private
 
   def start
@@ -19,16 +38,21 @@ private
     table = find(:css, '#cphContent_cphMainForm_dgLoan')
     loans = loan_table(table.text)
 
+    puts "Looking up 5 loans"
     check_loans_type(loans)
 
+    puts "Adding interest to statement balances"
+    loan_balances = []
     loans.each_with_index do |l, i|
       balance = currency_to_number(l[2])
       interest = currency_to_number(l[4])
+      loan_balances[i] = (balance + interest)
 
       #currency_to_number(ActionController::Base.helpers.number_to_currency(1234.75,unit: '$')).to_s
 
-      puts "Loan #{1+i}: #{balance + interest}"
+      $stderr.puts "Loan #{1+i}: #{loan_balances[i]}"
     end
+    Business::thing(loan_balances)
   end
 
   def check_loans_type(loans)
