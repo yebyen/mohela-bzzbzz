@@ -19,8 +19,8 @@ class Business
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
-      $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
-      unless l.to_s==g.curval.to_s
+      if (l.to_s != g.curval.to_s) || (g.updated_at.to_date<Date.today)
+        $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
         puts "Updating #{g.slug}"
         dp = Beeminder::Datapoint.new :value => l, :comment => "autodata from mohela-bzzbzz"
         g.add dp
@@ -50,7 +50,7 @@ private
 
       #currency_to_number(ActionController::Base.helpers.number_to_currency(1234.75,unit: '$')).to_s
 
-      $stderr.puts "Loan #{1+i}: #{loan_balances[i]}"
+      #$stderr.puts "Loan #{1+i}: #{loan_balances[i]}"
     end
     Business::thing(loan_balances)
   end
