@@ -19,7 +19,7 @@ class Business
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
-      if ((l.to_s != g.curval.to_s) || (g.updated_at.to_date<Date.today))
+      if ((l.to_s != g.curval.to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
         $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
         puts "Updating #{g.slug}"
         dp = Beeminder::Datapoint.new :value => l, :comment => "autodata from mohela-bzzbzz"
