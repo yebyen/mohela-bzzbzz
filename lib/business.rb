@@ -16,6 +16,7 @@ class Business
 
   def self.thing(loans)
     bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
+    any_changes = false
     goals = { "944733-475"=> 0,
               "500700-68"=> 1,
               "246112-68"=> 2,
@@ -25,14 +26,15 @@ class Business
       l = loans[i]
       g = bee.goal s
       if ((l.to_s != g.curval.to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
-        $stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
+        #$stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
+        any_changes = true
         puts "Updating #{g.slug}"
         dp = Beeminder::Datapoint.new :value => l, :comment => "autodata from mohela-bzzbzz"
         g.add dp
       end
       @@total += currency_to_number(l)
     end #fiber goes here
-    $stderr.puts "Total Loan Balance: #{@@total}"
+    $stderr.puts "Total Loan Balance: #{@@total}" if any_changes
   end
 
 private
