@@ -6,7 +6,12 @@ class Business
   BASE_URL = 'https://www.mohela.com'
 
   def initialize
+    @@total = 0
     start
+  end
+
+  def self.currency_to_number(currency_value)
+    (currency_value.is_a? String) ? currency_value.scan(/[.0-9]/).join.to_d : currency_value
   end
 
   def self.thing(loans)
@@ -25,7 +30,9 @@ class Business
         dp = Beeminder::Datapoint.new :value => l, :comment => "autodata from mohela-bzzbzz"
         g.add dp
       end
+      @@total += currency_to_number(l)
     end #fiber goes here
+    $stderr.puts "Total Loan Balance: #{@@total}"
   end
 
 private
@@ -44,8 +51,8 @@ private
     puts "Adding interest to statement balances"
     loan_balances = []
     loans.each_with_index do |l, i|
-      balance = currency_to_number(l[2])
-      interest = currency_to_number(l[4])
+      balance = Business::currency_to_number(l[2])
+      interest = Business::currency_to_number(l[4])
       loan_balances[i] = (balance + interest)
 
       #currency_to_number(ActionController::Base.helpers.number_to_currency(1234.75,unit: '$')).to_s
@@ -62,10 +69,6 @@ private
       Kernel.exit(1) unless c.length==6
     end
     Kernel.exit(1) unless loans.length==5
-  end
-
-  def currency_to_number(currency_value)
-    (currency_value.is_a? String) ? currency_value.scan(/[.0-9]/).join.to_d : currency_value
   end
 
   def loan_table(text)
