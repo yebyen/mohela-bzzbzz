@@ -37,10 +37,10 @@ class Business
     if any_changes
       $stderr.puts "Total Loan Balance: #{@@total}"
       goal_aggr = { "-25022d75"=> nil }
-      goals.each do |s, l|
+      goal_aggr.each do |s, l|
         g = bee.goal s
         puts "Updating #{g.slug} (aggregate goal)"
-        dp = Beeminder::Datapoint.new :value => @@total, :comment => "autodata from mohela-bzzbzz"
+        dp = Beeminder::Datapoint.new :value => (-1*@@total), :comment => "autodata from mohela-bzzbzz"
         g.add dp
       end
     end
