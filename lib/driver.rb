@@ -10,7 +10,9 @@ class Driver
 
   def self.register
     Capybara.register_driver(NAME) do |app|
-      Capybara::Poltergeist::Driver.new(app, options)
+      c = Capybara::Poltergeist::Driver.new(app, options)
+      c.headers = { 'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.11 Safari/537.36' }
+      c
     end
   end
 

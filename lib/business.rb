@@ -91,6 +91,8 @@ private
   def handle_secrets
     puts "Visiting #{BASE_URL}"
     visit BASE_URL
+    #sleep 10
+    #puts page.body
     form = find(:css, 'form#form1')
     username = USERNAME
 
