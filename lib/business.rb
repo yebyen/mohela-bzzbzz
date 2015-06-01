@@ -1,3 +1,4 @@
+require 'ap'
 #require_relative "../secrets"
 
 class Business
@@ -74,6 +75,7 @@ private
   end
 
   def check_loans_type(loans)
+    #ap loans
     loans.collect {|b| b.map(&:class)}.each do |c|
       Kernel.exit(1) unless c.class==Array
       c.each {|d| Kernel.exit(1) unless d==String }
@@ -83,9 +85,10 @@ private
   end
 
   def loan_table(text)
+    #ap text
     t = text.match(/Select Disbursement Date Loan Type Current Principal Balance \(\$\) Current Interest Rate \(\%\) Outstanding Interest \(\$\) Late Fees Due \(\$\) (.*)/)
     data = t[1]
-    table = data.scan(/(\d+\/\d\d\/\d\d) ([a-zA-Z ]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ?/)
+    table = data.scan(/(\d+\/\d\d\/\d\d\d\d) ([a-zA-Z ]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ?/)
   end
 
   def handle_secrets
