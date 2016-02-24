@@ -86,9 +86,9 @@ private
 
   def loan_table(text)
     #ap text
-    t = text.match(/Select Disbursement Date Loan Type Current Principal Balance \(\$\) Current Interest Rate \(\%\) Outstanding Interest \(\$\) Late Fees Due \(\$\) (.*)/)
+    t = text.match(/Select Disbursement Date Loan Type Current Principal Balance \(\$\) Current Interest Rate \(\%\) Outstanding Interest \(\$\) (.*)/)
     data = t[1]
-    table = data.scan(/(\d+\/\d\d\/\d\d\d\d) ([a-zA-Z ]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ?/)
+    table = data.scan(/(\d+\/\d\d\/\d\d\d\d) ([a-zA-Z ]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ?/)
   end
 
   def handle_secrets

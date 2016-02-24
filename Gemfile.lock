@@ -138,3 +138,6 @@ DEPENDENCIES
   phantomjs!
   poltergeist
   rails
+
+BUNDLED WITH
+   1.10.6
