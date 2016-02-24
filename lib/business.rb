@@ -79,7 +79,7 @@ private
     loans.collect {|b| b.map(&:class)}.each do |c|
       Kernel.exit(1) unless c.class==Array
       c.each {|d| Kernel.exit(1) unless d==String }
-      Kernel.exit(1) unless c.length==6
+      Kernel.exit(1) unless c.length==5
     end
     Kernel.exit(1) unless loans.length==5
   end
