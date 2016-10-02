@@ -53,7 +53,6 @@ private
     handle_secrets
     #find(:css, 'a#cphContent_a27')
     click_on "Payoff Calculator"
-    #save_screenshot('screenshot.png')
     table = find(:css, '#cphContent_cphMainForm_dgLoan')
     loans = loan_table(table.text)
 
@@ -86,7 +85,7 @@ private
 
   def loan_table(text)
     #ap text
-    t = text.match(/Select Disbursement Date Loan Type Current Principal Balance \(\$\) Current Interest Rate \(\%\) Outstanding Interest \(\$\) (.*)/)
+    t = text.match(/Select Disbursement Date Loan Type Current Principal \(\$\) Current Interest Rate \(\%\) Outstanding Interest \(\$\) (.*)/)
     data = t[1]
     table = data.scan(/(\d+\/\d\d\/\d\d\d\d) ([a-zA-Z ]+) ([\d,.]+) ([\d,.]+) ([\d,.]+) ?/)
   end
