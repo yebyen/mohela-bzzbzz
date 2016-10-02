@@ -2,6 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails'
 gem 'poltergeist'
-gem 'phantomjs', :require => 'phantomjs/poltergeist', :git => 'https://github.com/yebyen/phantomjs-gem'
+gem 'phantomjs', :require => 'phantomjs/poltergeist'
 #gem 'awesome_print', :require => 'ap'
 gem 'beeminder'
