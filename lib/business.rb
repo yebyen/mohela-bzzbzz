@@ -20,9 +20,8 @@ class Business
     any_changes = false
     goals = { "944733-475"=> 0,
               "500700-68"=> 1,
-              "246112-68"=> 2,
-              "358075-56"=> 3,
-              "480897-68"=> 4 }
+              "358075-56"=> 2,
+              "480897-68"=> 3 }
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
@@ -56,7 +55,7 @@ private
     table = find(:css, '#cphContent_cphMainForm_dgLoan')
     loans = loan_table(table.text)
 
-    puts "Looking up 5 loans"
+    puts "Looking up 4 loans"
     check_loans_type(loans)
 
     puts "Adding interest to statement balances"
@@ -78,9 +77,9 @@ private
     loans.collect {|b| b.map(&:class)}.each do |c|
       Kernel.exit(1) unless c.class==Array
       c.each {|d| Kernel.exit(1) unless d==String }
-      Kernel.exit(1) unless c.length==5
+      Kernel.exit(1) unless c.length==4
     end
-    Kernel.exit(1) unless loans.length==5
+    Kernel.exit(1) unless loans.length==4
   end
 
   def loan_table(text)
