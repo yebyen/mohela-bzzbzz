@@ -37,7 +37,7 @@ class Nelnet
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
-      if ((l[:outstanding_balance] != g.curval.to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
+      if ((l[:outstanding_balance].to_s != g.curval.to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
         #$stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
         any_changes = true
         puts "Updating #{g.slug}"
@@ -70,6 +70,7 @@ private
 
     puts "Looking up 4 loans"
     loans = check_loans_type(ls)
+    puts "Found 4 loans"
     Nelnet::thing(loans)
   end
 
@@ -155,9 +156,6 @@ private
 
     ls = all('.col-sm-12.account-detail.m-none.ng-scope')
 
-    ls.each do |l|
-      puts l.text
-    end
   end
 
 end
