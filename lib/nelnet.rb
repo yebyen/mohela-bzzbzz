@@ -137,7 +137,7 @@ private
     end
     puts ". Done"
 
-    sleep 1
+    sleep 5
     find('#maincontent')
 
     sleep 1
