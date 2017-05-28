@@ -31,9 +31,8 @@ class Nelnet
     bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
     any_changes = false
     goals = { "233400-56"=> 0,
-              "1100000-35"=> 1,
-              "400000-68"=> 2,
-              "1975500-541"=> 3 }
+              "1100000-34"=> 1,
+              "1975500-541"=> 2 }
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
@@ -68,9 +67,9 @@ private
     table = loans.map(&:text)
     ls = loan_table(table)
 
-    puts "Looking up 4 loans"
+    puts "Looking up 3 loans"
     loans = check_loans_type(ls)
-    puts "Found 4 loans"
+    puts "Found 3 loans"
     Nelnet::thing(loans)
   end
 
@@ -98,7 +97,7 @@ private
         outstanding_balance: outstanding_balance,
         principal_balance: principal_balance }
     end
-    Kernel.exit(1) unless ls.length==4
+    Kernel.exit(1) unless ls.length==3
     ls
   end
 
