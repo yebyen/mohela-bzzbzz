@@ -19,9 +19,7 @@ class Business
     bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
     any_changes = false
     goals = { "944733-475"=> 0,
-              "500700-68"=> 1,
-              "358075-56"=> 2,
-              "480897-68"=> 3 }
+              "358075-56"=> 1 }
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
@@ -51,12 +49,14 @@ private
   def start
     handle_secrets
     #find(:css, 'a#cphContent_a27')
+    find('h2', text: 'Payment Assistance')
     click_on "Payoff Calculator"
     table = find(:css, '#cphContent_cphMainForm_dgLoan')
     loans = loan_table(table.text)
 
-    puts "Looking up 4 loans"
+    puts "Looking up 2 loans"
     check_loans_type(loans)
+    puts "Found 2 loans"
 
     puts "Adding interest to statement balances"
     loan_balances = []
@@ -79,7 +79,7 @@ private
       c.each {|d| Kernel.exit(1) unless d==String }
       Kernel.exit(1) unless c.length==5
     end
-    Kernel.exit(1) unless loans.length==4
+    Kernel.exit(1) unless loans.length==2
   end
 
   def loan_table(text)
@@ -99,11 +99,17 @@ private
 
     within form do
       puts "Logging in..."
-      fill_in "cphContent_txtUsername", :with => username
-      click_on "Login"
+      find('input[title="Login"]').click
+      fill_in "cphContent_cphMainForm_txtLoginID", :with => username
     end
 
     form = find(:css, 'form#form1')
+    within form do
+      print "Entering password"
+      fill_in "cphContent_cphMainForm_txtMyword", :with => MY_WORD
+      click_on "Login"
+    end
+    puts ". Done"
     sec_question = find(:css, '#cphContent_cphMainForm_lblSecQuestion')
     puts "Answering security question."
 
@@ -125,13 +131,6 @@ private
       end
     end
 
-    form = find(:css, 'form#form1')
-    within form do
-      print "Entering password"
-      fill_in "cphContent_cphMainForm_txtMyword", :with => MY_WORD
-      click_on "Login"
-    end
-    puts ". Done"
 
   end
 
