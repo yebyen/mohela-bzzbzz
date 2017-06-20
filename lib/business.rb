@@ -18,8 +18,7 @@ class Business
   def self.thing(loans)
     bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
     any_changes = false
-    goals = { "944733-475"=> 0,
-              "358075-56"=> 1 }
+    goals = { "944733-475"=> 0 }
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
@@ -54,9 +53,9 @@ private
     table = find(:css, '#cphContent_cphMainForm_dgLoan')
     loans = loan_table(table.text)
 
-    puts "Looking up 2 loans"
+    puts "Looking up 1 loan"
     check_loans_type(loans)
-    puts "Found 2 loans"
+    puts "Found 1 loan"
 
     puts "Adding interest to statement balances"
     loan_balances = []
@@ -79,7 +78,7 @@ private
       c.each {|d| Kernel.exit(1) unless d==String }
       Kernel.exit(1) unless c.length==5
     end
-    Kernel.exit(1) unless loans.length==2
+    Kernel.exit(1) unless loans.length==1
   end
 
   def loan_table(text)
