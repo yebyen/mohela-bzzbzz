@@ -93,12 +93,17 @@ private
     visit BASE_URL
     #sleep 10
     #puts page.body
+
+    puts "Logging in..."
+    find('a#cphContent_btnLoginButton').trigger('click')
+
     form = find(:css, 'form#form1')
     username = USERNAME
 
     within form do
-      puts "Logging in..."
-      find('input[title="Login"]').click
+      #find('input[title="Login"]').click
+      find('span#cphContent_cphMainForm_lblMsg',
+           text: 'Please log in to access your account.')
       fill_in "cphContent_cphMainForm_txtLoginID", :with => username
     end
 
