@@ -9,5 +9,5 @@ require_relative 'lib/business'
 require_relative 'lib/nelnet'
 
 Driver.configure
-Business.new
+# Business.new
 Nelnet.new
