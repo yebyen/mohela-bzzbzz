@@ -4,7 +4,7 @@ BE='bundle exec'
 RU='rvm'
 
 RVM_ENVIR=/home/yebyen/.rvm/scripts/rvm
-RUBY_VERS=2.2.1
+RUBY_VERS=2.3.7
 export QT_QPA_PLATFORM=offscreen
 
  .  $RVM_ENVIR

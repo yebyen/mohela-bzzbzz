@@ -1,17 +1,19 @@
 #require 'ap'
 #require_relative "../secrets"
 
-class BigDecimal
+module BigDecimalWithCommasSupport
   class << self
-    def new_with_commas(*args)
+    def new(*args)
       if args.first.is_a?(String) && args.first=~/,/
         args.first.gsub!(',','')
       end
-      new_without_commas(*args)
+      super(*args)
     end
-    alias_method_chain :new, :commas
   end
 end
+
+    #alias_method_chain :new, :commas
+BigDecimal.send(:prepend, BigDecimalWithCommasSupport)
 
 class Nelnet
   include Capybara::DSL
