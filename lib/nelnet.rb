@@ -2,13 +2,11 @@
 #require_relative "../secrets"
 
 module BigDecimalWithCommasSupport
-  class << self
-    def new(*args)
-      if args.first.is_a?(String) && args.first=~/,/
-        args.first.gsub!(',','')
-      end
-      super(*args)
+  def initialize(*args)
+    if args.first.is_a?(String) && args.first=~/,/
+      args.first.gsub!(',','')
     end
+    super(*args)
   end
 end
 
@@ -38,7 +36,7 @@ class Nelnet
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
-      if ((l[:outstanding_balance].to_s != g.instance_variable_get(:@curval).to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
+      if ((l[:outstanding_balance].to_s != g.curval.to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
         #$stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
         any_changes = true
         puts "Updating #{g.slug}"
