@@ -1,6 +1,8 @@
 #require 'ap'
 #require_relative "../secrets"
 
+require 'capybara/dsl'
+
 class Business
   include Capybara::DSL
 
