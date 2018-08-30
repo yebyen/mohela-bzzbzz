@@ -5,8 +5,7 @@ RU='rvm'
 
 RVM_ENVIR=/home/yebyen/.rvm/scripts/rvm
 RUBY_VERS=2.3.7
-export QT_QPA_PLATFORM=offscreen
 
  .  $RVM_ENVIR
 $RU $RUBY_VERS >/dev/null
-  ./mohela.rb
+xvfb-run -s '+extension GLX +render -noreset' ./mohela.rb

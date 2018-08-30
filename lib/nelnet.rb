@@ -38,7 +38,7 @@ class Nelnet
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
-      if ((l[:outstanding_balance].to_s != g.curval.to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
+      if ((l[:outstanding_balance].to_s != g.instance_variable_get(:@curval).to_s) || (g.datapoints.first.updated_at.to_date<Date.today))
         #$stderr.puts "#{g.slug}: #{l}==#{g.curval} (#{l.to_s==g.curval.to_s})"
         any_changes = true
         puts "Updating #{g.slug}"
@@ -106,7 +106,7 @@ private
   def loan_table(ls)
     ls.map do |l|
 
-    t = l.match(%r{Group: ([A-Z]) Due Date: (\d+/\d+/\d+) Fees: \$([\d,]+\.\d\d) Status: ([A-Z]+) Interest Rate: (\d+\.\d+)% Accrued Interest: \$([\d,]+\.\d\d) Last Payment Received: \$([\d,]+\.\d\d) on (\d+/\d+/\d+) Outstanding Balance: \$([\d,]+.\d\d) Principal Balance: \$([\d,]+\.\d\d) Show Group [A-Z] Loans and Benefits})
+    t = l.match(%r{Group: ([A-Z])\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received: \$([\d,]+\.\d\d) on (\d+/\d+/\d+)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nShow Group [A-Z] Loans and Benefits})
     end
   end
 
@@ -115,7 +115,7 @@ private
     visit BASE_URL
     #sleep 10
     #puts page.body
-    form = find(:css, 'form.ng-pristine.ng-valid', text: "Log In Save Username")
+    form = find(:css, 'form.ng-pristine.ng-valid', text: "Log In")
 
     username = NELNET_USERNAME
     password = NELNET_WORD
