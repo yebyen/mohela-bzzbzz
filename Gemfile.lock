@@ -56,6 +56,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    archive-zip (0.11.0)
+      io-like (~> 0.3.0)
     arel (9.0.0)
     builder (3.2.3)
     capybara (3.7.0)
@@ -67,6 +69,9 @@ GEM
       xpath (~> 3.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
+    chromedriver-helper (2.1.0)
+      archive-zip (~> 0.10)
+      nokogiri (~> 1.8)
     chronic (0.10.2)
     cliver (0.3.2)
     concurrent-ruby (1.0.5)
@@ -78,6 +83,7 @@ GEM
     highline (1.7.10)
     i18n (1.1.0)
       concurrent-ruby (~> 1.0)
+    io-like (0.3.0)
     json (2.1.0)
     loofah (2.2.2)
       crass (~> 1.0.2)
@@ -154,6 +160,7 @@ PLATFORMS
 
 DEPENDENCIES
   beeminder!
+  chromedriver-helper
   poltergeist
   rails
   selenium-webdriver
@@ -162,4 +169,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.4
+   1.16.6
