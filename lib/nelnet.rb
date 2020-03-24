@@ -61,20 +61,21 @@ private
   def start
     handle_secrets
 
-    loans = all('.col-sm-12.account-detail.m-none.ng-scope')
+    loans = all('.m-t-xs.ng-scope.account-detail')
 
     table = loans.map(&:text)
-    ls = loan_table(table)
+    my_ls = loan_table(table)
 
     puts "Looking up 2 loans"
-    loans = check_loans_type(ls)
+    # binding.pry
+    loans = check_loans_type(my_ls)
     puts "Found 2 loans"
     Nelnet::thing(loans)
   end
 
   def check_loans_type(loans)
     #ap loans
-    ls = loans.map do |l|
+    my_ls = loans.map do |l|
       Kernel.exit(1) unless l.class==MatchData
       Kernel.exit(1) unless l.captures.count == 10
       l.captures.each {|d| Kernel.exit(1) unless d.class==String }
@@ -96,12 +97,12 @@ private
         outstanding_balance: outstanding_balance,
         principal_balance: principal_balance }
     end
-    Kernel.exit(1) unless ls.length==2
-    ls
+    Kernel.exit(1) unless my_ls.length==2
+    my_ls
   end
 
-  def loan_table(ls)
-    ls.map do |l|
+  def loan_table(my_ls)
+    my_ls.map do |l|
 
     t = l.match(%r{Group: ([A-Z])\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received: \$([\d,]+\.\d\d) on (\d+/\d+/\d+)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nShow Group [A-Z] Loans and Benefits})
     end
@@ -149,10 +150,10 @@ private
 
     sleep 1
 
-    find('h4', text: 'Loan Details')
+    find('h1', text: 'Loan Details')
     sleep 1
 
-    ls = all('.col-sm-12.account-detail.m-none.ng-scope')
+    my_ls = all('.col-sm-12.account-detail.m-none.ng-scope')
 
   end
 
