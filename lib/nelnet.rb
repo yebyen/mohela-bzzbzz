@@ -61,6 +61,7 @@ private
   def start
     handle_secrets
 
+    find('button.btn', text: 'Groups and Loan Details').click
     loans = all('.m-t-xs.ng-scope.account-detail')
 
     table = loans.map(&:text)
@@ -77,8 +78,11 @@ private
     #ap loans
     my_ls = loans.map do |l|
       Kernel.exit(1) unless l.class==MatchData
-      Kernel.exit(1) unless l.captures.count == 10
-      l.captures.each {|d| Kernel.exit(1) unless d.class==String }
+      Kernel.exit(1) unless l.captures.count == 11
+      l.captures.each {|d|
+    # well, some capture groups are optional
+      # Kernel.exit(1) unless d.class==String }
+        true }
       Kernel.exit(1) unless result = l.captures[0].match(/([A-Z])/)
       group = result.captures[0]
       Kernel.exit(1) unless due_on = Date.strptime(l.captures[1], "%m/%d/%Y")
@@ -88,8 +92,8 @@ private
       Kernel.exit(1) unless accrued = BigDecimal.new(l.captures[5])
       Kernel.exit(1) unless last_payment = BigDecimal.new(l.captures[6])
       Kernel.exit(1) unless last_paid_on = Date.strptime(l.captures[7], "%m/%d/%Y")
-      Kernel.exit(1) unless outstanding_balance = BigDecimal.new(l.captures[8])
-      Kernel.exit(1) unless principal_balance = BigDecimal.new(l.captures[9])
+      Kernel.exit(1) unless outstanding_balance = BigDecimal.new(l.captures[9])
+      Kernel.exit(1) unless principal_balance = BigDecimal.new(l.captures[10])
       { group: group, due_on: due_on, fee: fee,
         status: status, interest_rate: interest_rate,
         accrued: accrued, last_payment: last_payment,
@@ -103,8 +107,7 @@ private
 
   def loan_table(my_ls)
     my_ls.map do |l|
-
-    t = l.match(%r{Group: ([A-Z])\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received: \$([\d,]+\.\d\d) on (\d+/\d+/\d+)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nShow Group [A-Z] Loans and Benefits})
+    t = l.match(%r{Group: ([A-Z])\nGroup Details \(Group [A-Z]\)\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nAdditional Details \(Group [A-Z]\)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received:\n\$([\d,]+\.\d\d) on (\d+/\d+/\d+)\n(View Payment History\n)?Balance \(Group [A-Z]\)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nRepayment Plan: [A-Za-z \-]+})
     end
   end
 
