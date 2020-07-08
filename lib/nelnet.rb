@@ -145,6 +145,8 @@ private
     sleep 1
     find('div#area-one-paymentdue')
     sleep 1
+    find('a', text: 'Home').click
+    sleep 1
     find('div.default-tile h2.panel-title', text: 'Account Details')
 
     sleep 1
