@@ -106,8 +106,11 @@ private
   end
 
   def loan_table(my_ls)
+    regex = regex = %r{Group: ([A-Z]{1,2})\nGroup Details \(Group [A-Z]{1,2}\)\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nAdditional Details \(Group [A-Z]{1,2}\)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received:\n\$([\d,]+\.\d\d) on (\d+/\d+/\d+)\n(View Payment History\n)?Balance \(Group [A-Z]{1,2}\)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nRepayment Plan: [A-Za-z \-]+}
+
+
     my_ls.map do |l|
-    t = l.match(%r{Group: ([A-Z])\nGroup Details \(Group [A-Z]\)\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nAdditional Details \(Group [A-Z]\)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received:\n\$([\d,]+\.\d\d) on (\d+/\d+/\d+)\n(View Payment History\n)?Balance \(Group [A-Z]\)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nRepayment Plan: [A-Za-z \-]+})
+      t = l.match(regex)
     end
   end
 
