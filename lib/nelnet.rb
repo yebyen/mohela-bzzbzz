@@ -92,8 +92,8 @@ private
       Kernel.exit(1) unless accrued = BigDecimal(l.captures[5])
       Kernel.exit(1) unless last_payment = BigDecimal(l.captures[6])
       Kernel.exit(1) unless last_paid_on = Date.strptime(l.captures[7], "%m/%d/%Y")
-      Kernel.exit(1) unless outstanding_balance = BigDecimal(l.captures[9])
-      Kernel.exit(1) unless principal_balance = BigDecimal(l.captures[10])
+      Kernel.exit(1) unless outstanding_balance = BigDecimal(l.captures[9].gsub(/[\s,]/ ,""))
+      Kernel.exit(1) unless principal_balance = BigDecimal(l.captures[10].gsub(/[\s,]/ ,""))
       { group: group, due_on: due_on, fee: fee,
         status: status, interest_rate: interest_rate,
         accrued: accrued, last_payment: last_payment,
