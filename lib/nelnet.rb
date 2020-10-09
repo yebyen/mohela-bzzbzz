@@ -86,14 +86,14 @@ private
       Kernel.exit(1) unless result = l.captures[0].match(/([A-Z])/)
       group = result.captures[0]
       Kernel.exit(1) unless due_on = Date.strptime(l.captures[1], "%m/%d/%Y")
-      Kernel.exit(1) unless fee = BigDecimal.new(l.captures[2])
+      Kernel.exit(1) unless fee = BigDecimal(l.captures[2])
       status = l.captures[3]
-      Kernel.exit(1) unless interest_rate = BigDecimal.new(l.captures[4])
-      Kernel.exit(1) unless accrued = BigDecimal.new(l.captures[5])
-      Kernel.exit(1) unless last_payment = BigDecimal.new(l.captures[6])
+      Kernel.exit(1) unless interest_rate = BigDecimal(l.captures[4])
+      Kernel.exit(1) unless accrued = BigDecimal(l.captures[5])
+      Kernel.exit(1) unless last_payment = BigDecimal(l.captures[6])
       Kernel.exit(1) unless last_paid_on = Date.strptime(l.captures[7], "%m/%d/%Y")
-      Kernel.exit(1) unless outstanding_balance = BigDecimal.new(l.captures[9])
-      Kernel.exit(1) unless principal_balance = BigDecimal.new(l.captures[10])
+      Kernel.exit(1) unless outstanding_balance = BigDecimal(l.captures[9])
+      Kernel.exit(1) unless principal_balance = BigDecimal(l.captures[10])
       { group: group, due_on: due_on, fee: fee,
         status: status, interest_rate: interest_rate,
         accrued: accrued, last_payment: last_payment,
