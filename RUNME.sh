@@ -4,7 +4,7 @@ BE='bundle exec'
 RU='rvm'
 
 RVM_ENVIR=/home/yebyen/.rvm/scripts/rvm
-RUBY_VERS=2.5.8
+RUBY_VERS=2.7.2
 
  .  $RVM_ENVIR
 $RU $RUBY_VERS >/dev/null
