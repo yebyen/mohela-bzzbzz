@@ -61,16 +61,22 @@ private
   def start
     handle_secrets
 
-    find('button.btn', text: 'Groups and Loan Details').click
+    # find('button.btn', text: 'Groups and Loan Details').click
+    find('#group0.collapse.in')
     loans = all('.m-t-xs.ng-scope.account-detail')
+    unless loans.count == 2
+      puts '`loans` was not 2'
+      Kernel.exit(1)
+    end
 
     table = loans.map(&:text)
+    # binding.pry
     my_ls = loan_table(table)
 
     puts "Looking up 2 loans"
     # binding.pry
     loans = check_loans_type(my_ls)
-    puts "Found 2 loans"
+    puts "Found 2 well-formed loans"
     Nelnet::thing(loans)
   end
 
@@ -150,8 +156,8 @@ private
     sleep 1
     find('a', text: 'Home').click
     sleep 1
-    # binding.pry
-    # find('div.default-tile h2.panel-title', text: 'Account Details')
+    # find('div.default-tile h2.panel-title', text: 'Loan Details')
+    find('button', text: 'Loan Details').click
 
     # sleep 1
     # find('a', text: 'Current Balance:')
@@ -159,10 +165,12 @@ private
 
     # sleep 1
 
-    find('h1', text: 'Loan Details')
+    # find('h1', text: 'Loan Details')
+    find('button', text: 'Groups and Loan Details').click
     sleep 1
 
-    my_ls = all('.col-sm-12.account-detail.m-none.ng-scope')
+    # my_ls = all('.col-sm-12.account-detail.m-none.ng-scope')
+    my_ls = all('.account-detail.ng-scope')
 
   end
 
