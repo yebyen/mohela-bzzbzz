@@ -150,13 +150,14 @@ private
     sleep 1
     find('a', text: 'Home').click
     sleep 1
-    find('div.default-tile h2.panel-title', text: 'Account Details')
+    # binding.pry
+    # find('div.default-tile h2.panel-title', text: 'Account Details')
 
-    sleep 1
-    find('a', text: 'Current Balance:')
-    click_on 'Current Balance:'
+    # sleep 1
+    # find('a', text: 'Current Balance:')
+    # click_on 'Current Balance:'
 
-    sleep 1
+    # sleep 1
 
     find('h1', text: 'Loan Details')
     sleep 1
