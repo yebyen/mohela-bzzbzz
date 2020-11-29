@@ -1,9 +1,9 @@
 GIT
-  remote: git://github.com/beeminder/beeminder-gem
-  revision: e51a35fc3018e07dc42beabd7fa214f0f8516c80
+  remote: https://github.com/beeminder/beeminder-gem
+  revision: 77b80ff036dec84e034bc107a076788c537c7b45
   specs:
-    beeminder (0.2.11)
-      activesupport (>= 3.2, < 6)
+    beeminder (0.2.12)
+      activesupport (>= 3.2, < 7)
       chronic (~> 0.7)
       highline (~> 1.6)
       json
