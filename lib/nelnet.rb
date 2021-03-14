@@ -73,6 +73,8 @@ private
     # binding.pry
     my_ls = loan_table(table)
 
+    Kernel.exit(1) unless my_ls.compact.present?
+
     puts "Looking up 2 loans"
     # binding.pry
     loans = check_loans_type(my_ls)
@@ -112,7 +114,7 @@ private
   end
 
   def loan_table(my_ls)
-    regex = regex = %r{Group: ([A-Z]{1,2})\nGroup Details \(Group [A-Z]{1,2}\)\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z]+)\nAdditional Details \(Group [A-Z]{1,2}\)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received:\n\$([\d,]+\.\d\d) on (\d+/\d+/\d+)\n(View Payment History\n)?Balance \(Group [A-Z]{1,2}\)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nRepayment Plan: [A-Za-z \-]+}
+    regex = regex = %r|Group: ([A-Z]{1,2})\nGroup Details \(Group [A-Z]{1,2}\)\nDue Date: (\d+/\d+/\d+)\nFees: \$([\d,]+\.\d\d)\nStatus: ([A-Z0-9 ]+)\nAdditional Details \(Group [A-Z]{1,2}\)\nInterest Rate: (\d+\.\d+)%\nAccrued Interest: \$([\d,]+\.\d\d)\nLast Payment Received:\n\$([\d,]+\.\d\d) on (\d+/\d+/\d+)\n(View Payment History\n)?Balance \(Group [A-Z]{1,2}\)\nOutstanding Balance: \$([\d,]+.\d\d)\nPrincipal Balance: \$([\d,]+\.\d\d)\nRepayment Plan: [A-Za-z \-]+|
 
 
     my_ls.map do |l|
@@ -157,7 +159,7 @@ private
     find('a', text: 'Home').click
     sleep 1
     # find('div.default-tile h2.panel-title', text: 'Loan Details')
-    find('button', text: 'Loan Details').click
+    find('a', text: 'Loan Details').click
 
     # sleep 1
     # find('a', text: 'Current Balance:')
