@@ -15,10 +15,10 @@ class Driver
 
   def self.register
     Capybara.register_driver :selenium_chrome do |app|
-      profile = Selenium::WebDriver::Chrome::Profile.new
+      options = Selenium::WebDriver::Chrome::Options.new
+      options.add_argument('--window-size=1024x768')
       Capybara::Selenium::Driver.new(app, browser: :chrome,
-                                      args: %w[window-size=1024,768],
-                                      profile: profile)
+                                      options: options)
     end
     # Capybara.register_driver(NAME) do |app|
     #   c = Capybara::Poltergeist::Driver.new(app, options)
