@@ -30,8 +30,8 @@ class Nelnet
   def self.thing(loans)
     bee = Beeminder::User.new AUTH_TOKEN #, :auth_type => :oauth
     any_changes = false
-    goals = { "233400-56"=> 0,
-              "1100000-34"=> 1 }
+    goals = { "233400-56"=> 1,
+              "1100000-34"=> 0 }
     goals.each do |s, i| #slug, index
       l = loans[i]
       g = bee.goal s
