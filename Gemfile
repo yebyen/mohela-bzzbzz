@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.0.2'
+ruby '3.1.1'
 
 gem 'rails'
 gem 'poltergeist'
@@ -8,5 +8,5 @@ gem 'poltergeist'
 #gem 'awesome_print', :require => 'ap'
 gem 'beeminder', git: 'https://github.com/beeminder/beeminder-gem'
 gem 'selenium-webdriver'
-gem 'chromedriver-helper'
+gem 'webdrivers'
 gem 'pry-rails'
